@@ -118,27 +118,103 @@ El supervisor no tenía forma de auditar el trabajo de los técnicos ni de saber
 
 
 ### Mapa de Técnicos en Tiempo Real
-![Mapa de Técnicos](./screenshots/03-mapa-tecnicos.png)
 <img width="1365" height="638" alt="Captura de pantalla 2026-10-07 152803" src="https://github.com/user-attachments/assets/b17f2402-43c0-4aae-b119-e1a35e05a546" />
 
 
 ### Detalle del Ticket con Evidencia Fotográfica
-![Detalle del Ticket](./screenshots/04-detalle-ticket.png)
 <img width="458" height="540" alt="Captura de pantalla 2026-10-07 152848" src="https://github.com/user-attachments/assets/8927db90-fede-47e8-8d6f-ddba8f308abb" />
 
 ### Formulario de Creación de Ticket
-![Crear Ticket](./screenshots/05-crear-ticket.png)
 <img width="1327" height="592" alt="Captura de pantalla 2026-10-07 152912" src="https://github.com/user-attachments/assets/63734ed9-43ab-490e-900b-1301f23a3fa1" />
 
 ### Reportes y Analítica
-![Reportes](./screenshots/06-reportes.png)
-<img width="122" height="112" alt="Captura de pantalla 2026-10-07 153213" src="https://github.com/user-attachments/assets/59c0382a-acae-4d8b-940d-241494c70d4b" />
 <img width="1152" height="396" alt="Captura de pantalla 2026-10-07 153256" src="https://github.com/user-attachments/assets/7fa06cf5-7de3-4ef5-8334-14d9f30a7b7e" />
 
 ### App Móvil (Ionic + Capacitor)
-![App Móvil](./screenshots/07-app-movil.jpg)
-![Uploading Captura de pantalla 2026-10-07 153213.png…]()
+<img width="122" height="112" alt="Captura de pantalla 2026-10-07 153213" src="https://github.com/user-attachments/assets/97abf9a3-2127-4f16-ac80-2d9fff3ea6a5" />
+
+##  Arquitectura
+MVVM
+
+
+##  Decisiones técnicas clave
+
+### ¿Por qué Supabase y no un backend propio?
+Para un proyecto con tiempo acotado (sustentación), Supabase ofreció:
+- Backend completo en horas, no semanas
+- Auth, Realtime, Storage y RLS integrados
+- PostgreSQL real, no un BaaS limitado
+- Deploy instantáneo sin gestionar servidores
+
+### ¿Por qué RLS en lugar de validación solo en frontend?
+Porque **el frontend nunca es confiable**. Toda la seguridad de roles vive en la base de datos:
+- Un técnico no puede ver tickets de otros aunque manipule el request
+- Solo el admin puede cerrar tickets (política de control de calidad)
+- La validación es a nivel de PostgreSQL, no de JavaScript
+
+### ¿Por qué arquitectura MVVM en React?
+Para separar responsabilidades en un proyecto que iba a crecer:
+- `views/` → solo presentación
+- `viewmodels/` → lógica de cada pantalla
+- `services/` → comunicación con Supabase
+- `hooks/` → lógica reutilizable
+- `models/` → tipos TypeScript
+
+Esto hace el código testeable, mantenible y escalable.
+
+### ¿Por qué el técnico no puede cerrar sus propios tickets?
+**Decisión de negocio**: el cierre lo valida un supervisor/admin para asegurar la calidad del trabajo y la veracidad de la evidencia. El técnico marca el trabajo como realizado, el admin valida y cierra.
+
+### Sincronización offline de evidencias
+Los técnicos trabajan en zonas con señal intermitente. La app:
+1. Guarda la foto localmente en el dispositivo
+2. La encola en almacenamiento local
+3. Cuando detecta conexión, la sube automáticamente a Supabase Storage
+4. Actualiza el ticket con la URL de la evidencia
+5. Notificaciones push para técnicos
 
 ---
 
-## 🏗️ Arquitectura
+##  Impacto
+
+-  **Reemplazó el flujo de WhatsApp** de la empresa por un sistema centralizado
+-  **Evidencias fotográficas organizadas** y trazables por ticket
+-  **Visibilidad en tiempo real** de los técnicos en campo
+-  **Métricas y reportes** que antes no existían
+-  **Sistema de roles** con permisos a nivel de base de datos
+-  **App móvil nativa** para técnicos en zonas con mala señal
+-  **Calificación 19/20** por el supervisor de la empresa
+
+---
+
+##  Estado del proyecto
+
+**En fase de despliegue operativo.** El sistema ha sido validado con más de **15 tickets reales** durante la fase de pruebas con casos de la empresa.
+
+**Próximos pasos:**
+- Backend en **FastAPI (Python)** para centralizar lógica de negocio y métricas avanzadas
+- Integración con sistemas de facturación
+
+---
+
+## 👤 Autor
+
+**JIMMY MORALES C**
+Ingeniero de Software
+
+- 🌐 Demo: [lutel.vercel.app](https://lutel.vercel.app/login)
+- 💼 LinkedIn: [JIMMYLINKEDIN](www.linkedin.com/in/jimmy-morales-60653b397)
+- 📧 Email: mcj97932@gmail.com
+- 🐙 GitHub: [GITHUB](https://github.com/Jitech2026)
+
+> *"Construí este proyecto para resolver un problema real de una empresa de telecomunicaciones. Aprendí que el mejor código es el que reemplaza un proceso ineficiente por uno que la gente realmente quiere usar."*
+
+---
+
+<div align="center">
+
+**¿Te interesa el proyecto o quieres contactarme?** ¡Escríbeme!
+
+</div>
+
+
