@@ -203,9 +203,9 @@ Los técnicos trabajan en zonas con señal intermitente. La app:
 Ingeniero de Software
 
 - 🌐 Demo: [lutel.vercel.app](https://lutel.vercel.app/login)
-- 💼 LinkedIn: [JIMMYLINKEDIN](www.linkedin.com/in/jimmy-morales-60653b397)
+- 💼 LinkedIn: (www.linkedin.com/in/jimmy-morales-60653b397)
 - 📧 Email: mcj97932@gmail.com
-- 🐙 GitHub: [GITHUB](https://github.com/Jitech2026)
+- 🐙 GitHub: (https://github.com/Jitech2026)
 
 > *"Construí este proyecto para resolver un problema real de una empresa de telecomunicaciones. Aprendí que el mejor código es el que reemplaza un proceso ineficiente por uno que la gente realmente quiere usar."*
 
