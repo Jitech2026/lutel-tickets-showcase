@@ -134,7 +134,43 @@ El supervisor no tenía forma de auditar el trabajo de los técnicos ni de saber
 <img width="122" height="112" alt="Captura de pantalla 2026-10-07 153213" src="https://github.com/user-attachments/assets/97abf9a3-2127-4f16-ac80-2d9fff3ea6a5" />
 
 ##  Arquitectura
-MVVM
+## 🏗️ Arquitectura
+
+┌─────────────────────────┐         ┌─────────────────────────┐
+│   Frontend Web (React)  │         │  App Móvil (Ionic)      │
+│   + TypeScript + Vite   │         │  + Capacitor (Android)  │
+│   Deploy: Vercel        │         │  Deploy: APK            │
+└───────────┬─────────────┘         └───────────┬─────────────┘
+            │                                   │
+            │     Supabase Client SDK           │
+            │                                   │
+            └───────────────┬───────────────────┘
+                            ▼
+            ┌───────────────────────────────┐
+            │        SUPABASE               │
+            │  ┌─────────────────────────┐  │
+            │  │ PostgreSQL (5 tablas)   │  │
+            │  │ Auth (JWT)              │  │
+            │  │ Realtime (WebSockets)   │  │
+            │  │ Storage (evidencias)    │  │
+            │  │ RLS (policies por rol)  │  │
+            │  └─────────────────────────┘  │
+            └───────────────────────────────┘
+
+### Estructura del proyecto (frontend)
+
+src/
+├── components/    → Componentes reutilizables de UI
+├── hooks/         → Custom hooks
+├── models/        → Tipos y entidades TypeScript
+├── services/      → Llamadas a Supabase
+├── styles/        → Estilos globales
+├── theme/         → Configuración de Tailwind
+├── utils/         → Funciones auxiliares
+├── viewmodels/    → Lógica de cada vista (MVVM)
+├── views/         → Pantallas completas
+├── App.tsx        → Componente raíz
+└── main.tsx       → Punto de entrada
 
 
 ##  Decisiones técnicas clave
